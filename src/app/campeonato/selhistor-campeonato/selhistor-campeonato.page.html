@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start"  (click)="campeonatos()">
+      <ion-icon name="arrow-back"> </ion-icon>
+    </ion-buttons>
+    <ion-title>Históricos campeonato</ion-title>
+    <ion-buttons slot="primary" (click)="addHistor()">
+      <ion-button fill="solid" color="success">Novo
+        <ion-icon slot="end" name="add"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-spinner name="bubbles" *ngIf="spinner"></ion-spinner>
+
+<div style="font-size: small; text-align: center; padding-top: 5px;"><span>{{TreData | date: 'dd/MM/yyyy'}}</span>  - {{TreTitulo}}</div>
+<div style="font-size: x-small; text-align: center; padding-top: 5px;"><span>Atleta: {{nome}}</span></div>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of itens">
+      <ion-item>
+        <ion-label><small>{{item.TreCamOrdem}})</small> Round: <b>{{item.TreCamRound}} - {{item.resultado}}</b> contra <b>{{item.TreCamAdvNome}}</b>
+          <h6><small> Clube: <b>{{item.TreCamAdvClube}}</b></small></h6>
+        </ion-label>
+      </ion-item>
+      <div>
+        <ion-item-options side="end">
+          <ion-item-option (click)="editar(item.EmpIdf, item.TreIdf, item.TreCamIdf)" 
+            color="secondary">
+            Editar
+          </ion-item-option>
+          <ion-item-option id="present-alert" (click)="showExcluir(item.EmpIdf, item.TreIdf, item.TreCamIdf)" color="danger">
+            Excluir
+          </ion-item-option> 
+        </ion-item-options>
+      </div>
+    </ion-item-sliding>
+  </ion-list>
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      refreshingSpinner="circles"
+      refreshingText="Carregando...">
+    </ion-refresher-content>
+  </ion-refresher>
+</ion-content>

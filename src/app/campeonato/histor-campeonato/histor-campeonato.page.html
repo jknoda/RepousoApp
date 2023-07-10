@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start"  (click)="selHistor()">
+      <ion-icon name="arrow-back"> </ion-icon>
+    </ion-buttons>
+    <ion-title>Histórico campeonato</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-spinner name="bubbles" *ngIf="spinner"></ion-spinner>
+
+<div style="font-size: small; text-align: center; padding-top: 5px;">{{TreData | date: 'dd/MM/yyyy'}} - {{TreTitulo}}</div>
+
+<ion-content class="ion-padding">  
+  <ion-list>
+    <ion-item class="itemHistor">
+      <ion-input type="number" label="Ordem" class="form-control my-3" placeholder="Ordem" [(ngModel)]="TreCampeonato.TreCamOrdem"></ion-input>
+      <ion-select aria-label="Rodada" interface="action-sheet" placeholder="Rodada" [(ngModel)]="TreCampeonato.TreCamRound">
+        <ion-select-option value="R1">Rodada 1</ion-select-option>
+        <ion-select-option value="R2">Rodada 2</ion-select-option>
+        <ion-select-option value="R3">Rodada 3</ion-select-option>
+        <ion-select-option value="8F">Oitavas</ion-select-option>
+        <ion-select-option value="4F">Quartas</ion-select-option>
+        <ion-select-option value="SF">Semi final</ion-select-option>
+        <ion-select-option value="RP">Repescagem</ion-select-option>
+        <ion-select-option value="3">Disputa terceiro</ion-select-option>
+        <ion-select-option value="F">Final</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <fieldset>
+    <legend>Adversário</legend>
+    <ion-input labelPlacement="floating" label="Nome" class="form-control my-3" placeholder="Nome do adversário" [(ngModel)]="TreCampeonato.TreCamAdvNome"></ion-input>
+    <ion-input labelPlacement="floating" label="Clube" class="form-control my-3" placeholder="Clube do adversário" [(ngModel)]="TreCampeonato.TreCamAdvClube"></ion-input>
+    <ion-select labelPlacement="floating" label="Faixa" interface="action-sheet" placeholder="Faixa" [(ngModel)]="faixaStr">
+      <ion-select-option value="10">branca</ion-select-option>
+      <ion-select-option value="20">azul</ion-select-option>
+      <ion-select-option value="30">amarela</ion-select-option>
+      <ion-select-option value="40">laranja</ion-select-option>
+      <ion-select-option value="50">verde</ion-select-option>
+      <ion-select-option value="60">roxa</ion-select-option>
+      <ion-select-option value="70">marrom</ion-select-option>
+      <ion-select-option value="80">preta</ion-select-option>
+    </ion-select>
+  </fieldset>  
+  <fieldset>
+    <legend>Placar</legend>
+    <ion-label>Seu placar</ion-label>
+    <ion-item class="itemHistor">
+      <ion-input label="Ipon" type="number" placeholder="0" maxlength="1" min="0" max="1" [(ngModel)]="euIppon" (change)="ver()"></ion-input>
+      <ion-input label="Wazari" type="number" placeholder="0" maxlength="1" min="0" max="2" [(ngModel)]="euWazari" (change)="ver()"></ion-input>
+      <ion-input label="Shido" type="number" placeholder="0" maxlength="1" min="0" max="3" [(ngModel)]="euShido" (change)="ver()"></ion-input>
+    </ion-item>
+    <ion-label>Placar adversário</ion-label>
+    <ion-item class="itemHistor">
+      <ion-input label="Ipon" type="number" placeholder="0" maxlength="1" min="0" max="1" [(ngModel)]="advIppon" (change)="ver()"></ion-input>
+      <ion-input label="Wazari" type="number" placeholder="0" maxlength="1" min="0" max="2" [(ngModel)]="advWazari" (change)="ver()"></ion-input>
+      <ion-input label="Shido" type="number" placeholder="0" maxlength="1" min="0" max="3" [(ngModel)]="advShido" (change)="ver()"></ion-input>
+    </ion-item>
+  </fieldset>  
+  <fieldset>
+    <ion-label>Vitória:</ion-label>  
+    <ion-radio-group [(ngModel)]="vitoria">
+      <ion-radio style="margin-left: 10px;" value="S" aria-label="Sim">Sim</ion-radio>
+      <ion-radio style="margin-left: 40px;" value="N" aria-label="Não">Não</ion-radio>
+    </ion-radio-group>
+    <ion-input labelPlacement="floating" label="Técnico" class="form-control my-3" placeholder="Nome do seu técnico" [(ngModel)]="TreCampeonato.TreCamTecnico"></ion-input>
+    <ion-textarea labelPlacement="floating" label="Observações" class="form-control my-3" placeholder="Observações" [(ngModel)]="TreCampeonato.TreCamObs"></ion-textarea>
+  </fieldset>
+  <ion-button color="primary" expand="block" (click)="salvar()">
+    Salvar
+  </ion-button>
+</ion-content>

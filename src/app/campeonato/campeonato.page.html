@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-button  routerLink="/folder">
+        <ion-icon size="small" slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Campeonato</ion-title>
+    <ion-buttons slot="primary" (click)="addCampeonato()" *ngIf="UsuPerfil=='A' || UsuPerfil=='T'">
+      <ion-button fill="solid" color="success">Novo
+        <ion-icon slot="end" name="add"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-row class="azulclaro" style="flex-wrap: nowrap;">
+  <ion-input placeholder="Buscar pelo Título" [(ngModel)]="filtro" type="search" (ionChange)="carregar()" ></ion-input>
+  <ion-buttons (click)="carregar()">
+    <ion-button>
+      <ion-icon slot="end" name="search"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-row>
+
+<ion-spinner name="bubbles" *ngIf="spinner"></ion-spinner>
+
+<ion-content>
+  <ion-list>
+    <div  *ngIf="UsuPerfil == 'A' || UsuPerfil == 'T'">
+      <ion-item-sliding *ngFor="let item of itens">
+        <ion-item>
+          <ion-button fill="clear" (click)="selecionar(item.EmpIdf, item.TreIdf, item.TreTitulo, item.TreObs, item.TreData, item.TreResponsavel)">
+            <ion-icon size="large" slot="icon-only" name="checkbox"></ion-icon>
+          </ion-button>
+          <ion-label>{{item.TreTitulo}}
+            <h6><small> <span>{{item.TreData}}</span>  - {{item.TreResponsavel}}</small></h6>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option (click)="editar(item.EmpIdf, item.TreIdf, item.TreTitulo, item.TreObs, item.TreData, item.TreResponsavel)" 
+            color="secondary">
+            Editar
+          </ion-item-option>
+          <ion-item-option id="present-alert" (click)="showExcluir(item.TreIdf)" color="danger">
+            Excluir
+          </ion-item-option> 
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+    <div  *ngIf="UsuPerfil != 'A' && UsuPerfil != 'T'">
+      <ion-item-sliding *ngFor="let item of itens">
+        <ion-item>
+          <ion-button fill="clear" (click)="selecionar(item.EmpIdf, item.TreIdf, item.TreTitulo, item.TreObs, item.TreData, item.TreResponsavel)">
+            <ion-icon size="large" slot="icon-only" name="checkbox"></ion-icon>
+          </ion-button>
+          <ion-label>{{item.TreTitulo}}
+            <h6><small> <span>{{item.TreData}}</span>  - {{item.TreResponsavel}}</small></h6>
+          </ion-label>
+        </ion-item>
+      </ion-item-sliding>
+    </div>
+  </ion-list>
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      refreshingSpinner="circles"
+      refreshingText="Carregando...">
+    </ion-refresher-content>
+  </ion-refresher>
+</ion-content>
