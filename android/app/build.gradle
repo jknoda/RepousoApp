@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "com.jknsoftware.academy"
+    namespace "com.jknsoftware.repouso"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.jknsoftware.academy"
+        applicationId "com.jknsoftware.repouso"
       minSdk 28
       targetSdk 33
-      versionCode 101
-        versionName "1.1"
+      versionCode 100
+        versionName "1.00"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

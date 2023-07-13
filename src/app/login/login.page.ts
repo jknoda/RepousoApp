@@ -63,17 +63,17 @@ export class LoginPage implements OnInit, OnDestroy {
 
   login(){
     localStorage.clear();
-    //this.buscar(1);
+    this.buscar(1);
     this.loginok();
   }
   private loginok(){
     let erro = true;
-    if (true){ //this.data != null){
-      if (true) //this.data["UsuSenha"] == this.senha)
+    if (this.data != null){
+      if (this.data["usersenha"] == this.senha)
       {
-        localStorage.setItem("userPerfil","A"); //this.data["UsuPerfil"]);
+        localStorage.setItem("userPerfil",this.data["userperfil"]);
         localStorage.setItem("userEmail",this.usuario);
-        localStorage.setItem("userNome","Nome"); //this.data["UsuAtleta"]);
+        localStorage.setItem("userNome",this.data["usernome"]);
         localStorage.setItem("userLogado","S");
         localStorage.setItem("usuIdf","0"); //this.data["UsuIdf"]);
         this.spinner = false;
@@ -136,7 +136,7 @@ export class LoginPage implements OnInit, OnDestroy {
 
   enviarSenhaOk(){
     if (this.emailSenha != "" && this.data != null){
-      let senha = this.data["UsuSenha"]
+      let senha = this.data["usersenha"]
       this.limparDados();
       let dados = {
         to: this.emailSenha,
@@ -167,11 +167,11 @@ export class LoginPage implements OnInit, OnDestroy {
 
   buscar(rotina = 0){
     let dados = {
-      EmpIdf: this.EmpIdf,
-      UsuEmail: this.usuario.toLowerCase()
+      empidf: this.EmpIdf,
+      userlogin: this.usuario.toLowerCase()
     };
     this.spinner = true;
-    this.buscarDados = this.provider.dadosApi(dados, "/api/usuario/finduser").subscribe({
+    this.buscarDados = this.provider.dadosApi(dados, "/api/user/finduser").subscribe({
       next: (data) => {
         this.spinner = false;
           this.data = data;
@@ -207,17 +207,15 @@ export class LoginPage implements OnInit, OnDestroy {
       this.nome = this.usuario;
     }
     let dados = {
-      EmpIdf: this.EmpIdf,
-      UsuEmail: this.usuario,
-      UsuNome: this.nome, 
-      UsuAtleta: this.nome,
-      UsuCPF: 0,
-      UsuPerfil: 'L', // Aluno
-      ReceberEmail: 'S',
-      UsuSenha: this.senha
+      empidf: this.EmpIdf,
+      userlogin: this.usuario,
+      usernome: this.nome, 
+      cpf: 0,
+      userperfil: 'U', // Usuario
+      usersenha: this.senha
     };
     this.spinner = true;
-    this.criarDados = this.provider.dadosApi(dados, "/api/usuario/create").subscribe({
+    this.criarDados = this.provider.dadosApi(dados, "/api/user/create").subscribe({
       next: (data) => {
         this.spinner = false;
         this.data = data;

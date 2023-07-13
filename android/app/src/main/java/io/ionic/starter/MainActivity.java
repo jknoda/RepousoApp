@@ -1,4 +1,4 @@
-package com.jknsoftware.academy;
+package com.jknsoftware.repouso;
 
 import com.getcapacitor.BridgeActivity;
 
