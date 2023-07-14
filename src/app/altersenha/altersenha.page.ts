@@ -30,6 +30,7 @@ export class AltersenhaPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    //console.log('EMPRESA ', this.EmpIdf);
     this.buscar();
   }
 
@@ -45,15 +46,14 @@ export class AltersenhaPage implements OnInit, OnDestroy {
 
   buscar(){
     let dados = {
-      EmpIdf: this.EmpIdf,
-      UsuEmail: localStorage.getItem("userEmail")
+      userlogin: localStorage.getItem("userEmail")
     };
     this.spinner = true;
-    this.buscarDados = this.provider.dadosApi(dados, "/api/usuario/finduser").subscribe({
+    this.buscarDados = this.provider.dadosApi(dados, "/api/user/finduser").subscribe({
       next: (data) => {
         this.spinner = false;
-          this.nome = data["UsuAtleta"];
-          this.UsuIdf = data["UsuIdf"];
+        this.nome = data["usernome"];
+        this.UsuIdf = data["useridf"];
       },
       error: (err) => {
         this.spinner = false;
@@ -75,13 +75,12 @@ export class AltersenhaPage implements OnInit, OnDestroy {
     }    
     else if (this.senha == this.senhaRepetir && this.senha != ""){
       let dados = {
-        EmpIdf: this.EmpIdf,
-        UsuIdf: this.UsuIdf,
-        UsuAtleta: this.nome,
-        UsuSenha: this.senha
+        useridf: this.UsuIdf,
+        usernome: this.nome,
+        usersenha: this.senha
       };
       this.spinner = true;
-      this.updateDados = this.provider.dadosApi(dados, "/api/usuario/updatesenha").subscribe({
+      this.updateDados = this.provider.dadosApi(dados, "/api/user/updatesenha").subscribe({
         next: (data) => {
           this.spinner = false;
           this.mensagem("Dados alterados!", "success");

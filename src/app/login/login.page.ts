@@ -20,6 +20,8 @@ export class LoginPage implements OnInit, OnDestroy {
   data: any;
   EmpIdf: number = ServiceConfig.EMPIDF;
   emailSenha: string = "";
+  empcodigo: number = 0;
+  empsenha: string = "";
 
   novo: boolean = false;
   esqueci: boolean = false;
@@ -41,14 +43,16 @@ export class LoginPage implements OnInit, OnDestroy {
     this.limparDados();
   }
 
-  private limparDados(){
-    localStorage.clear();
-    this.usuario = "";
+  private limparDados(modo=0){
+    if (modo == 0){
+      localStorage.clear();
+      this.data = null;
+      this.usuario = "";
+    }
     this.senha = "";
     this.senhaRepetir = "";
     this.nome = "";
     this.novo = false;
-    this.data = null;
   }
 
   async mensagem(mensagem, cor){
@@ -62,27 +66,15 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   login(){
+    this.spinner = true;
     localStorage.clear();
     this.buscar(1);
     this.loginok();
   }
   private loginok(){
-    let erro = true;
+    this.spinner = false;
     if (this.data != null){
-      if (this.data["usersenha"] == this.senha)
-      {
-        localStorage.setItem("userPerfil",this.data["userperfil"]);
-        localStorage.setItem("userEmail",this.usuario);
-        localStorage.setItem("userNome",this.data["usernome"]);
-        localStorage.setItem("userLogado","S");
-        localStorage.setItem("usuIdf","0"); //this.data["UsuIdf"]);
-        this.spinner = false;
-        return this.router.navigate(['folder']);
-      }
-    }
-    if (erro){
-      this.mensagem("Usuário/senha inválida!", "danger");
-      return true
+        this.buscarEmpresa(Number(this.data["empidf"]));
     }
   }
 
@@ -107,8 +99,8 @@ export class LoginPage implements OnInit, OnDestroy {
   }
   private criarOk(){
     if (this.data == null){
-      // insert
-      this.insert();
+      this.verificaEmpresa();
+      //this.insert();
     }
     else {
       this.mensagem("Usuário já existente!", "danger");
@@ -167,32 +159,90 @@ export class LoginPage implements OnInit, OnDestroy {
 
   buscar(rotina = 0){
     let dados = {
-      empidf: this.EmpIdf,
-      userlogin: this.usuario.toLowerCase()
+      userlogin: this.usuario.toLowerCase(),
+      usersenha: this.senha
     };
     this.spinner = true;
-    this.buscarDados = this.provider.dadosApi(dados, "/api/user/finduser").subscribe({
+    this.buscarDados = this.provider.dadosApi(dados, "/api/user/userlogin").subscribe({
       next: (data) => {
         this.spinner = false;
-          this.data = data;
-          switch(rotina) { 
-            case 1: { 
-                this.loginok();
-                break; 
-            } 
-            case 2: { 
-                this.criarOk();
-                break; 
-            } 
-            case 3: { 
-              this.enviarSenhaOk();
+        if (!data && rotina == 1){
+          this.data = null;
+          this.mensagem("Usuário/senha inválido!", "danger");
+          return this.router.navigate(['login']);
+        }
+        this.data = data;
+        switch(rotina) { 
+          case 1: { 
+              this.loginok();
               break; 
-            } 
-            default: { 
-                return true; 
-                break; 
-            } 
-          };
+          } 
+          case 2: { 
+              this.criarOk();
+              break; 
+          } 
+          case 3: { 
+            this.enviarSenhaOk();
+            break; 
+          } 
+          default: { 
+              return true; 
+              break; 
+          } 
+        };
+      },
+      error: (err) => {
+        this.spinner = false;
+        let msg = err.error.msg.toString();
+        this.mensagem(msg,"danger");
+      }
+    });
+  }
+
+  buscarEmpresa(EmpIdf){
+    let dados = {
+      empidf: EmpIdf
+    };
+    this.spinner = true;
+    this.buscarDados = this.provider.dadosApi(dados, "/api/empresa/find").subscribe({
+      next: (data) => {
+        this.spinner = false;
+        localStorage.setItem("userPerfil",this.data["userperfil"]);
+        localStorage.setItem("userEmail",this.usuario);
+        localStorage.setItem("userNome",this.data["usernome"]);
+        localStorage.setItem("userLogado","S");
+        localStorage.setItem("usuIdf","0"); //this.data["UsuIdf"]);
+        localStorage.setItem("empIdf",this.data["empidf"]);
+        localStorage.setItem("empRazao",data["emprazao"]);
+        localStorage.setItem("empFantasia",data["empfantasia"]);
+        ServiceConfig.EMPIDF = Number(this.data["empidf"]);
+        this.limparDados(1);
+        return this.router.navigate(['folder']);
+      },
+      error: (err) => {
+        this.spinner = false;
+        let msg = err.error.msg.toString();
+        this.mensagem(msg,"danger");
+      }
+    });
+  }
+
+  verificaEmpresa(){
+    let dados = {
+      empidf: this.empcodigo,
+      empsenha: this.empsenha
+    };
+    this.spinner = true;
+    this.buscarDados = this.provider.dadosApi(dados, "/api/empresa/empresalogin").subscribe({
+      next: (data) => {
+        if (!data){
+          this.data = null;
+          this.mensagem("Empresa/senha inválido!", "danger");
+          return this.router.navigate(['login']);
+        }
+        this.spinner = false;
+        this.data = data;
+        this.insert();
       },
       error: (err) => {
         this.spinner = false;
@@ -207,7 +257,7 @@ export class LoginPage implements OnInit, OnDestroy {
       this.nome = this.usuario;
     }
     let dados = {
-      empidf: this.EmpIdf,
+      empidf: this.empcodigo,
       userlogin: this.usuario,
       usernome: this.nome, 
       cpf: 0,
@@ -220,6 +270,11 @@ export class LoginPage implements OnInit, OnDestroy {
         this.spinner = false;
         this.data = data;
         this.login();
+      },
+      error: (err) => {
+        this.spinner = false;
+        let msg = err.error.msg.toString();
+        this.mensagem(msg,"danger");
       }
     });
   }  

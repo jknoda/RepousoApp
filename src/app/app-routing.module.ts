@@ -14,11 +14,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'campeonato',
-    loadChildren: () => import('./campeonato/campeonato.module').then(m => m.CampeonatoPageModule),
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },   {
@@ -29,7 +24,13 @@ const routes: Routes = [
     path: 'altersenha',
     loadChildren: () => import('./altersenha/altersenha.module').then( m => m.AltersenhaPageModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'empresa',
+    loadChildren: () => import('./empresa/empresa.module').then( m => m.EmpresaPageModule),
+    canActivate: [AuthGuard]
   }
+
 ];
 
 @NgModule({

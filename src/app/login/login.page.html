@@ -4,7 +4,7 @@
 
     <!-- Logo -->
     <div padding-horizontal text-center class="animated fadeInDown">
-      <div class="logo"></div>
+      
       <h4 no-margin>
           <ion-img class="img-login center" src="../../assets/images/logo.png"></ion-img>     
        </h4>
@@ -16,22 +16,55 @@
     <div  class="list-form">
       <div *ngIf="!esqueci">
         <div *ngIf="novo">
+          <ion-card class="ion-text-center" style="background-color: #baba40">
+            <ion-card-header>
+              <ion-card-title>Login empresa</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-item lines="none"> 
+                <ion-icon size="small" style="padding-right: 10px; color:white;" name="person" item-left></ion-icon>
+                <ion-input 
+                  class="custom"
+                  labelPlacement="floating"
+                  placeholder="Código empresa"
+                  label="Código empresa"
+                  type="number"
+                  color="light" 
+                  [(ngModel)]="empcodigo" 
+                  maxlength="6"
+                  [clearInput]="true">
+                </ion-input>            
+              </ion-item>             
+              <ion-item lines="none"> 
+                <ion-icon size="small" style="padding-right: 10px; color:white;" name="person" item-left></ion-icon>
+                <ion-input 
+                  class="custom"
+                  labelPlacement="floating"
+                  placeholder="Senha empresa"
+                  label="Senha empresa"
+                  type="password"
+                  color="light" 
+                  [(ngModel)]="empsenha" 
+                  maxlength="20"
+                  [clearInput]="true">
+                </ion-input>            
+              </ion-item>             
+            </ion-card-content>
+          </ion-card>
           <ion-item lines="none"> 
             <ion-icon size="small" style="padding-right: 10px; color:white;" name="person" item-left></ion-icon>
-
             <ion-input 
               class="custom"
               labelPlacement="floating"
               placeholder="Digite seu nome"
-              label="Nome atleta"
+              label="Nome"
               type="text"
               color="light" 
               [(ngModel)]="nome" 
               maxlength="50"
               [clearInput]="true">
-            </ion-input>
-            
-          </ion-item>             
+            </ion-input>            
+          </ion-item>
         </div>
         <ion-item lines="none"> 
           <ion-icon size="small" style="padding-right: 10px; color:white;" name="mail" item-left></ion-icon>
@@ -62,6 +95,7 @@
             [(ngModel)]="senha" 
             maxlength="10"
             helperText="Campo requerido"
+            errorText="Digite a senha!"
             [clearInput]="true">
           </ion-input>
         </ion-item>        
@@ -161,9 +195,6 @@
       {{versao}}
     </div>
     <div style="margin-left: 10px; margin-top: 40px; font-size: small;">
-      <div>
-        <a href="https://sakurarepouso.com.br" target="_blank">Casa de repouso SAKURA</a>
-      </div>
       <div>
         <a href="https://www.jknoda.com.br" target="_blank">jknoda</a>
       </div>

@@ -7,8 +7,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CampeonatoPageModule } from './campeonato/campeonato.module';
 import { AltersenhaPageModule } from './altersenha/altersenha.module';
+import { EmpresaPageModule } from './empresa/empresa.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,8 +17,8 @@ import { AltersenhaPageModule } from './altersenha/altersenha.module';
     IonicModule.forRoot(), 
     AppRoutingModule,
     HttpClientModule,
-    CampeonatoPageModule,
-    AltersenhaPageModule
+    AltersenhaPageModule,
+    EmpresaPageModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
