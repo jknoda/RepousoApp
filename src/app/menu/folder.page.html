@@ -6,21 +6,21 @@
     <ion-title class="titulo-home">Home</ion-title>
     <ion-buttons slot="end">
       <ion-button  (click)="logout()">
-        <ion-icon slot="end" name="log-out"></ion-icon>
+        <ion-icon class="fa-sharp fa-solid fa-right-from-bracket" slot="end"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item lines="none" color="dark">
+  <ion-item>
     <ion-button color="secondary" slot="start" (click)="empresa()" *ngIf="master">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon class="fa-sharp fa-solid fa-building"></ion-icon>
     </ion-button>
     <ion-button color="secondary" slot="start" (click)="alterarsenha()">
-      <ion-icon name="trail-sign"></ion-icon>
+      <ion-icon class="fa-sharp fa-solid fa-key"></ion-icon>
     </ion-button>
-  </ion-item>>
+  </ion-item>
   <!-- Logo -->
   <div padding-horizontal text-center class="animated fadeInDown center">
       <img class="img-folder center" [src]="logoempresa" alt="logotipo" *ngIf="logoOk">

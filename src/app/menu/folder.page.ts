@@ -30,7 +30,11 @@ export class FolderPage implements OnInit, DoCheck, OnDestroy {
   }
  
   ionViewWillEnter() {
-    this.buscalogo();
+    //this.buscalogo();
+    let empLogo = JSON.parse(localStorage.getItem("empLogo")!);
+    let imagem = this.bin2String(empLogo);
+    this.logoempresa = this.sanitizer.bypassSecurityTrustUrl(imagem);
+    this.logoOk = true;
   }
 
   ngDoCheck(){    
@@ -54,6 +58,7 @@ export class FolderPage implements OnInit, DoCheck, OnDestroy {
     this.router.navigate(['/altersenha']);
   }
 
+  /*
   private buscalogo(){
     let dados = {
       empidf: ServiceConfig.EMPIDF
@@ -72,6 +77,7 @@ export class FolderPage implements OnInit, DoCheck, OnDestroy {
       }
     });
   }
+  */
   bin2String(array) {
     var retorno = '';
     //var j = 0;

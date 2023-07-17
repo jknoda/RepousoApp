@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AltersenhaPageModule } from './altersenha/altersenha.module';
 import { EmpresaPageModule } from './empresa/empresa.module';
-import { PessoaPageModule } from './cadastros/pessoa/pessoa.module';
+import { PessoaPageModule } from './cadastros/pessoa/cadastropessoa/pessoa.module';
 
 @NgModule({
   declarations: [AppComponent],

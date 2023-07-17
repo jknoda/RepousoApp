@@ -38,7 +38,6 @@ export class AuthGuard implements CanActivate {
     let roles = '';
     if (typeof route.data['roles'] !== 'undefined' && route.data['roles']){
       rolesRota = route.data['roles'];
-      console.log('perfil: ',rolesRota);
       const perfil = localStorage.getItem('userPerfil');
       switch(perfil){
         case 'M' : roles = 'MAS';

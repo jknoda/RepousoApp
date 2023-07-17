@@ -205,7 +205,7 @@ export class LoginPage implements OnInit, OnDestroy {
       empidf: EmpIdf
     };
     this.spinner = true;
-    this.buscarDados = this.provider.dadosApi(dados, "/api/empresa/find").subscribe({
+    this.buscarDados = this.provider.dadosApi(dados, "/api/empresa/findcomlogo").subscribe({
       next: (data) => {
         localStorage.setItem("userPerfil",this.data["userperfil"]);
         localStorage.setItem("userEmail",this.usuario);
@@ -215,6 +215,8 @@ export class LoginPage implements OnInit, OnDestroy {
         localStorage.setItem("empIdf",this.data["empidf"]);
         localStorage.setItem("empRazao",data["emprazao"]);
         localStorage.setItem("empFantasia",data["empfantasia"]);
+        let imagem = JSON.stringify(data["emplogo"]["data"]);
+        localStorage.setItem("empLogo",imagem);
         ServiceConfig.EMPIDF = Number(this.data["empidf"]);
         this.limparDados(1);
         this.spinner = false;
@@ -226,6 +228,14 @@ export class LoginPage implements OnInit, OnDestroy {
         this.mensagem(msg,"danger");
       }
     });
+  }
+  bin2String(array) {
+    var retorno = '';
+    //var j = 0;
+    for(let j=0;j<array.length;j++){
+      retorno = retorno + String.fromCharCode(array[j])
+    }
+    return retorno;
   }
 
   verificaEmpresa(){

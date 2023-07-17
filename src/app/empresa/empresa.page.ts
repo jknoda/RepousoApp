@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { EmpresaModel } from '../model/empresa.model';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ export interface imgFile {
   templateUrl: './empresa.page.html',
   styleUrls: ['./empresa.page.scss'],
 })
-export class EmpresaPage implements OnInit {
+export class EmpresaPage implements OnInit, OnDestroy {
 
   Empresa = new EmpresaModel;
   novo = true;
@@ -141,6 +141,18 @@ export class EmpresaPage implements OnInit {
   mostrarFoto(arquivo)
   {
     this.logoempresa = arquivo; 
+  }
+
+  ngOnDestroy(): void {
+    if (this.alterDadosEmpresa != null){
+      this.alterDadosEmpresa.unsubscribe();
+    }
+    if (this.lerDadosEmpresa != null){
+      this.lerDadosEmpresa.unsubscribe();
+    }
+    if (this.deleteDadosEmpresa != null){
+      this.deleteDadosEmpresa.unsubscribe();
+    }
   }
 
 }

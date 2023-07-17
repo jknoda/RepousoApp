@@ -1,18 +1,17 @@
-<!-- <ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app> -->
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay" *ngIf="url == '/folder' || url == '/campeonato' || url == '/altersenha'">
+    <ion-menu contentId="main-content" type="overlay" *ngIf="show">
       <ion-content>
         <ion-list id="inbox-list">
-          <!--<ion-list-header>
+          <ion-list-header>
             <ion-img class="img-login center" src="../../assets/images/minilogo.png"></ion-img>
-          </ion-list-header>-->
-          <!-- <ion-note>www.jknoda.com.br</ion-note> -->
+          </ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">            
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected" *ngIf="p.show">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+            <ion-item routerDirection="root" lines="none" detail="false" *ngIf="p.show && p.title == '-'">
+              <hr class="rounded">teste
+            </ion-item>
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected" *ngIf="p.show && p.title != '-'">
+              <i [class]="p.icon">&nbsp;</i>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>

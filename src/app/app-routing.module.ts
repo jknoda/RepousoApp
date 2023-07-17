@@ -32,9 +32,11 @@ const routes: Routes = [
     data: {roles:['MAS']}
   },
   {
-    path: 'pessoa',
-    loadChildren: () => import('./cadastros/pessoa/pessoa.module').then( m => m.PessoaPageModule)
+    path: 'listapessoa',
+    loadChildren: () => import('./cadastros/pessoa/listapessoa/listapessoa.module').then( m => m.ListapessoaPageModule),
+    canActivate: [AuthGuard],
   }
+
 ];
 
 @NgModule({

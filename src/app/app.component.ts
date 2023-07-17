@@ -12,6 +12,8 @@ export class AppComponent {
 
 import { NavigationEnd, Router } from '@angular/router';
 import { Component } from '@angular/core';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { ThisReceiver } from '@angular/compiler';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -21,19 +23,30 @@ export class AppComponent {
 
   public appPages = [
     { title: 'Home', url: '/folder', icon: 'home', show: true },
-    //{ title: 'Empresa', url: '/empresa', icon: 'trail-sign', show: true },
-    { title: 'Alterar nome e senha', url: '/altersenha', icon: 'trail-sign', show: true },
     { title: 'Sair', url: '/', icon: 'exit', show: true },
   ];
 
   url!: string;
-  constructor(private router: Router) {
-    
-    router.events.subscribe(event => {
+  show: boolean = true;
 
+  constructor(private router: Router) {
+    router.events.subscribe(event => {
       if (event instanceof NavigationEnd ) {
-        this.url = event.url; 
-        //console.log(this.url);
+        let perfil = localStorage.getItem("userPerfil");
+        this.appPages = [
+          { title: 'Home', url: '/folder', icon: 'fa-sharp fa-solid fa-house', show: true },
+          { title: 'Empresa', url: '/empresa', icon: 'fa-sharp fa-solid fa-building', show: (perfil == 'M') },
+          { title: 'Pessoa', url: '/listapessoa', icon: 'fa-sharp fa-solid fa-person', show: (perfil == 'A' || perfil == 'M') },
+          { title: 'Alterar nome e senha', url: '/altersenha', icon: 'fa-sharp fa-solid fa-key', show: true },
+          { title: 'Sair', url: '/', icon: 'fa-sharp fa-solid fa-right-from-bracket', show: true },
+        ];
+        this.url = event.url.toUpperCase();
+
+        this.show = this.url != '/LOGIN';
+        this.show = this.show && (this.url.indexOf('/PESSOA') == -1);
+
+        //console.log('Show url',this.url, this.url.indexOf('/PESSOA'), this.show);
+
       }
     });
   }

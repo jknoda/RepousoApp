@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-button  routerLink="/folder">
+        <ion-icon size="small" slot="icon-only" class="fa-sharp fa-solid fa-house"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Lista de pessoas</ion-title>
+    <ion-buttons slot="primary" (click)="addPessoa()">
+    <ion-button fill="solid" color="success">Nova
+      <ion-icon slot="end" name="add"> </ion-icon>
+    </ion-button>
+  </ion-buttons>    
+  </ion-toolbar>
+</ion-header>
+
+<ion-spinner name="bubbles" *ngIf="spinner"></ion-spinner>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of itens">
+      <ion-item>
+        <ion-label>
+          <b>{{item.apelido}}</b> {{item.email}}
+        </ion-label>
+      </ion-item>
+      <div>
+        <ion-item-options side="end">
+          <ion-item-option (click)="editar(item.pessoaidf)" 
+            color="secondary">
+            Editar
+          </ion-item-option>
+          <ion-item-option id="present-alert" (click)="showExcluir(item.pessoaidf)" color="danger">
+            Excluir
+          </ion-item-option> 
+        </ion-item-options>
+      </div>
+    </ion-item-sliding>
+  </ion-list>
+  
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      refreshingSpinner="circles"
+      refreshingText="Carregando...">
+    </ion-refresher-content>
+  </ion-refresher>
+</ion-content>

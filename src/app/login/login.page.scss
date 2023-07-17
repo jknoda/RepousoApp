@@ -1,11 +1,21 @@
+.img-login{
+  width:64px;
+  margin:0;
+}
 
+.center{
+  margin:0 auto;
+  text-align:center;
+}
+
+/*
 ion-item {
   --ion-item-background: transparent;
 }
 
 // backgrounds //
 .bg-white {
-background-color: #fff;
+  background-color: #fff;
 }
 
 .bg-light {
@@ -224,13 +234,16 @@ ion-menu {
 color: green;
 }
 
+/*
 :host {
     ion-content {
         //--background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
-      --background: linear-gradient(135deg, red, gold, black);
+      //--background: linear-gradient(135deg, red, gold, black);
     }
 }
+*/
 
+/*
 .paz {
     position: relative;
     z-index: 10;
@@ -264,3 +277,4 @@ ion-input.custom .helper-text,
 ion-input.custom .counter {
   color: var(--ion-color-step-700, #b4e69c);
 }
+*/
