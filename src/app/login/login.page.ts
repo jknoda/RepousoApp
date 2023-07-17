@@ -56,6 +56,7 @@ export class LoginPage implements OnInit, OnDestroy {
   }
 
   async mensagem(mensagem, cor){
+    this.spinner = false;
     const toast = await this.toastController.create({
       message: mensagem,
       duration: 3000,
@@ -72,7 +73,7 @@ export class LoginPage implements OnInit, OnDestroy {
     this.loginok();
   }
   private loginok(){
-    this.spinner = false;
+    //this.spinner = false;
     if (this.data != null){
         this.buscarEmpresa(Number(this.data["empidf"]));
     }
@@ -140,12 +141,12 @@ export class LoginPage implements OnInit, OnDestroy {
       this.spinner = true;
       this.enviarEmail = this.provider.dadosApi(dados, "/api/email/enviargen").subscribe({
         next: (data) => {
-            this.spinner = false;
+            //this.spinner = false;
             this.data = data;
             this.mensagem("Email enviado!","success");
         },
         error: (err) => {
-          this.spinner = false;
+          //this.spinner = false;
           let msg = err.error.msg.toString();
           this.mensagem(msg,"danger");
         }
@@ -165,7 +166,7 @@ export class LoginPage implements OnInit, OnDestroy {
     this.spinner = true;
     this.buscarDados = this.provider.dadosApi(dados, "/api/user/userlogin").subscribe({
       next: (data) => {
-        this.spinner = false;
+        //this.spinner = false;
         if (!data && rotina == 1){
           this.data = null;
           this.mensagem("Usuário/senha inválido!", "danger");
@@ -192,7 +193,7 @@ export class LoginPage implements OnInit, OnDestroy {
         };
       },
       error: (err) => {
-        this.spinner = false;
+        //this.spinner = false;
         let msg = err.error.msg.toString();
         this.mensagem(msg,"danger");
       }
@@ -206,7 +207,6 @@ export class LoginPage implements OnInit, OnDestroy {
     this.spinner = true;
     this.buscarDados = this.provider.dadosApi(dados, "/api/empresa/find").subscribe({
       next: (data) => {
-        this.spinner = false;
         localStorage.setItem("userPerfil",this.data["userperfil"]);
         localStorage.setItem("userEmail",this.usuario);
         localStorage.setItem("userNome",this.data["usernome"]);
@@ -217,10 +217,11 @@ export class LoginPage implements OnInit, OnDestroy {
         localStorage.setItem("empFantasia",data["empfantasia"]);
         ServiceConfig.EMPIDF = Number(this.data["empidf"]);
         this.limparDados(1);
+        this.spinner = false;
         return this.router.navigate(['folder']);
       },
       error: (err) => {
-        this.spinner = false;
+        //this.spinner = false;
         let msg = err.error.msg.toString();
         this.mensagem(msg,"danger");
       }
@@ -240,12 +241,12 @@ export class LoginPage implements OnInit, OnDestroy {
           this.mensagem("Empresa/senha inválido!", "danger");
           return this.router.navigate(['login']);
         }
-        this.spinner = false;
+        //this.spinner = false;
         this.data = data;
         this.insert();
       },
       error: (err) => {
-        this.spinner = false;
+        //this.spinner = false;
         let msg = err.error.msg.toString();
         this.mensagem(msg,"danger");
       }
@@ -267,12 +268,12 @@ export class LoginPage implements OnInit, OnDestroy {
     this.spinner = true;
     this.criarDados = this.provider.dadosApi(dados, "/api/user/create").subscribe({
       next: (data) => {
-        this.spinner = false;
+        //this.spinner = false;
         this.data = data;
         this.login();
       },
       error: (err) => {
-        this.spinner = false;
+        //this.spinner = false;
         let msg = err.error.msg.toString();
         this.mensagem(msg,"danger");
       }

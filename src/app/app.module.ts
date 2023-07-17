@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AltersenhaPageModule } from './altersenha/altersenha.module';
 import { EmpresaPageModule } from './empresa/empresa.module';
+import { PessoaPageModule } from './cadastros/pessoa/pessoa.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,8 @@ import { EmpresaPageModule } from './empresa/empresa.module';
     AppRoutingModule,
     HttpClientModule,
     AltersenhaPageModule,
-    EmpresaPageModule
+    EmpresaPageModule,
+    PessoaPageModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
