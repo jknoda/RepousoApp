@@ -17,9 +17,117 @@
   <ion-input type="password" labelPlacement="floating" label="Nova senha" [(ngModel)]="senha" class="form-control my-3" placeholder="Nova senha" maxlength="10"></ion-input>
   <ion-input type="password" labelPlacement="floating" label="Repita nova senha"  [(ngModel)]="senhaRepetir" class="form-control my-3" placeholder="Nova senha" maxlength="10"></ion-input>
   -->
-  <br><br>
-  <ion-button color="primary" expand="block" (click)="alterar()">
-    Salvar
-  </ion-button>
+
+  <ion-card class="ion-text-center">
+    <ion-card-header>
+      <ion-card-title>Foto</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button (click)="captureImage()">
+        Tirar foto
+      </ion-button>
+      <ion-button (click)="compressFile()">
+        Selecionar foto
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="imagem">
+    <ion-card-header>
+      <ion-card-title>FOTO</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div>
+        <img class="foto" [src]="imagem" alt="Foto">
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
+        <ion-input type="number" labelPlacement="floating" label="CPF" class="form-control my-3" placeholder="cpf" 
+          [(ngModel)]="Pessoa.cpf"
+          maxlength="11"
+          helperText="Campo requerido"
+          errorText="CPF inválido!"
+          [clearInput]="true"></ion-input>  
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
+        <ion-input labelPlacement="floating" label="Nome" class="form-control my-3" placeholder="nome" 
+          [(ngModel)]="Pessoa.nome"
+          maxlength="150"
+          helperText="Campo requerido"
+          errorText="Nome inválido!"
+          [clearInput]="true"></ion-input>  
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
+        <ion-input labelPlacement="floating" label="Apelido" class="form-control my-3" placeholder="apelido" 
+          [(ngModel)]="Pessoa.apelido"
+          maxlength="100">
+        </ion-input>  
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
+        <ion-item>
+          <ion-input id="date" labelPlacement="floating" label="Nascimento" class="form-control my-3" placeholder="nascimento" [(ngModel)]="Pessoa.nascimento" value="{{ Pessoa.nascimento | date: 'dd.MM.yyyy' }}"></ion-input>  
+          <ion-popover trigger="date" size="cover">
+            <ng-template>
+              <ion-datetime
+                presentation="date"
+                [(ngModel)]="Pessoa.nascimento"
+                locale="sl-SI"
+              ></ion-datetime>
+            </ng-template>
+          </ion-popover>
+        </ion-item>        
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
+        <ion-input labelPlacement="floating" label="Fone" class="form-control my-3" placeholder="fone" 
+          [(ngModel)]="Pessoa.fone01"
+          maxlength="20"
+          [clearInput]="true">
+        </ion-input>  
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
+        <ion-input labelPlacement="floating" label="Fone recado" class="form-control my-3" placeholder="fone recado" 
+          [(ngModel)]="Pessoa.fone02"
+          maxlength="20"
+          [clearInput]="true">
+        </ion-input>  
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
+        <ion-input labelPlacement="floating" label="Fone obs" class="form-control my-3" placeholder="obs/nome recado" 
+          [(ngModel)]="Pessoa.fone02obs"
+          maxlength="200"
+          [clearInput]="true">
+        </ion-input>  
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
+        <ion-input type="email" labelPlacement="floating" label="Email" class="form-control my-3" placeholder="email" 
+          [(ngModel)]="Pessoa.email"
+          maxlength="150"
+          helperText="Campo requerido"
+          errorText="Email inválido!"
+          [clearInput]="true"
+          email>
+        </ion-input>  
+      </ion-col>
+      <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
+        <ion-label>Tipo de pessoa</ion-label><br>
+        <ion-checkbox [(ngModel)]="tipoadm">Administrador</ion-checkbox><br>
+        <ion-checkbox [(ngModel)]="tipofun">Funcionário</ion-checkbox><br>
+        <ion-checkbox [(ngModel)]="tipocui">Cuidador</ion-checkbox><br>
+        <ion-checkbox [(ngModel)]="tipopac">Paciente</ion-checkbox>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-button color="primary" expand="block" (click)="salvar()">
+        <span *ngIf="novo">Salvar</span>
+        <span *ngIf="!novo">Atualizar</span>
+      </ion-button>
+      <ion-button color="primary" expand="block" (click)="retornar()">
+        Retornar
+      </ion-button>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 

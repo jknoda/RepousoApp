@@ -7,8 +7,8 @@ android {
         applicationId "com.jknsoftware.repouso"
       minSdk 28
       targetSdk 33
-      versionCode 100
-        versionName "1.00"
+      versionCode 101
+        versionName "1.01"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

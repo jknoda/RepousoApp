@@ -10,11 +10,6 @@ const routes: Routes = [
     component: ListapessoaPage
   },
   {
-    path: 'ad-pessoa',
-    loadChildren: () => import('../cadastropessoa/pessoa.module').then( m => m.PessoaPageModule),
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'edit-pessoa/:pessoaidf',
     loadChildren: () => import('../cadastropessoa/pessoa.module').then( m => m.PessoaPageModule),
     canActivate: [AuthGuard],

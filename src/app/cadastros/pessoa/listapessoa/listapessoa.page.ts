@@ -35,6 +35,7 @@ export class ListapessoaPage implements OnInit, OnDestroy {
   }
 
   async mensagem(mensagem, cor){
+    this.spinner = false;
     const toast = await this.toastController.create({
       message: mensagem,
       duration: 2000,
@@ -69,7 +70,7 @@ export class ListapessoaPage implements OnInit, OnDestroy {
   }
 
   addPessoa(){
-    return this.router.navigate(['listapessoa/ad-pessoa']);
+    return this.router.navigate(['listapessoa/edit-pessoa/0']);
   }
 
   editar(pessoaidf){
@@ -98,11 +99,30 @@ export class ListapessoaPage implements OnInit, OnDestroy {
   }  
 
   excluir(pessoaidf){
-
-  }
-
-  teste(){
-    return this.router.navigate(['listapessoa/pessoa']);
+    let api = "/api/pessoa/delete";
+    if (false){
+      this.mensagem('Erro!', 'danger');
+    }
+    else{
+      {
+        let dados = {
+          empidf 	  : this.EmpIdf,
+          pessoaidf : pessoaidf
+        };
+        this.spinner = true;
+        this.deletarDados = this.provider.dadosApi(dados, api).subscribe({
+          next: (data) => {
+            this.itens = [];
+            this.mensagem("Pessoa excluida com sucesso!","success");
+            this.carregar();
+          },
+          error: (err) => {
+            let msg = err.error.msg.toString();
+            this.mensagem(msg,"danger");
+          }
+        });  
+      }
+    }    
   }
 
   //atualizar o list view
