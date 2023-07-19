@@ -28,10 +28,15 @@ export class AppComponent {
 
   url!: string;
   show: boolean = true;
+  empresa: string = "CASA REPOUSO";
 
   constructor(private router: Router) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd ) {
+        this.empresa = localStorage.getItem("empFantasia")!;
+        if (this.empresa.length > 50){
+          this.empresa = this.empresa.substring(0,49);
+        }
         let perfil = localStorage.getItem("userPerfil");
         this.appPages = [
           { title: 'Home', url: '/folder', icon: 'fa-sharp fa-solid fa-house', show: true },
@@ -44,6 +49,7 @@ export class AppComponent {
 
         this.show = this.url != '/LOGIN';
         this.show = this.show && (this.url.indexOf('/PESSOA') == -1);
+
 
         //console.log('Show url',this.url, this.url.indexOf('/PESSOA'), this.show);
 

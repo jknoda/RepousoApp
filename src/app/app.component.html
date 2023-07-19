@@ -1,10 +1,11 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
+  <ion-split-pane when="xl" contentId="main-content">
     <ion-menu contentId="main-content" type="overlay" *ngIf="show">
       <ion-content>
         <ion-list id="inbox-list">
           <ion-list-header>
             <ion-img class="img-login center" src="../../assets/images/minilogo.png"></ion-img>
+            {{empresa}}
           </ion-list-header>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">            
             <ion-item routerDirection="root" lines="none" detail="false" *ngIf="p.show && p.title == '-'">

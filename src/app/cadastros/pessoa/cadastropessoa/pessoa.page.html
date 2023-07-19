@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-button  routerLink="/folder">
-        <ion-icon size="small" slot="icon-only" class="fa-sharp fa-solid fa-house"></ion-icon>
+      <ion-button  routerLink="/listapessoa">
+        <ion-icon name="arrow-back"> </ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Cadastro de pessoa</ion-title>
@@ -22,23 +22,15 @@
     <ion-card-header>
       <ion-card-title>Foto</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
-      <ion-button (click)="captureImage()">
-        Tirar foto
-      </ion-button>
-      <ion-button (click)="compressFile()">
-        Selecionar foto
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-  <ion-card *ngIf="imagem">
-    <ion-card-header>
-      <ion-card-title>FOTO</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
+    <div *ngIf="imagem">
       <div>
         <img class="foto" [src]="imagem" alt="Foto">
       </div>
+    </div>    
+    <ion-card-content>
+      <ion-button (click)="compressFile()">
+        Selecionar foto
+      </ion-button>
     </ion-card-content>
   </ion-card>
 
@@ -63,18 +55,19 @@
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
         <ion-input labelPlacement="floating" label="Apelido" class="form-control my-3" placeholder="apelido" 
           [(ngModel)]="Pessoa.apelido"
-          maxlength="100">
+          maxlength="100"
+          [clearInput]="true">
         </ion-input>  
       </ion-col>
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
         <ion-item>
-          <ion-input id="date" labelPlacement="floating" label="Nascimento" class="form-control my-3" placeholder="nascimento" [(ngModel)]="Pessoa.nascimento" value="{{ Pessoa.nascimento | date: 'dd.MM.yyyy' }}"></ion-input>  
+          <ion-input id="date" labelPlacement="floating" label="Nascimento" class="form-control my-3" placeholder="nascimento" [(ngModel)]="Pessoa.nascimento"></ion-input>  
           <ion-popover trigger="date" size="cover">
             <ng-template>
               <ion-datetime
                 presentation="date"
                 [(ngModel)]="Pessoa.nascimento"
-                locale="sl-SI"
+                locale="pt-BR"
               ></ion-datetime>
             </ng-template>
           </ion-popover>
@@ -112,11 +105,13 @@
         </ion-input>  
       </ion-col>
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
-        <ion-label>Tipo de pessoa</ion-label><br>
-        <ion-checkbox [(ngModel)]="tipoadm">Administrador</ion-checkbox><br>
-        <ion-checkbox [(ngModel)]="tipofun">Funcionário</ion-checkbox><br>
-        <ion-checkbox [(ngModel)]="tipocui">Cuidador</ion-checkbox><br>
-        <ion-checkbox [(ngModel)]="tipopac">Paciente</ion-checkbox>
+        <fieldset>
+          <legend>Tipo de pessoa</legend>
+          <ion-checkbox labelPlacement="end" [(ngModel)]="tipoadm">Administrador</ion-checkbox><br>
+          <ion-checkbox labelPlacement="end" [(ngModel)]="tipofun">Funcionário</ion-checkbox><br>
+          <ion-checkbox labelPlacement="end" [(ngModel)]="tipocui">Cuidador</ion-checkbox><br>
+          <ion-checkbox labelPlacement="end" [(ngModel)]="tipopac">Paciente</ion-checkbox>
+        </fieldset> 
       </ion-col>
     </ion-row>
     <ion-row>

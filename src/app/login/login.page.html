@@ -1,192 +1,187 @@
-<ion-content class="ion-padding animated fadeIn login auth-page">
+<ion-content class="ion-padding">
+  <!-- Logo -->
+  <div padding-horizontal text-center class="animated fadeInDown">      
+    <h4 no-margin>
+        <ion-img class="img-login center" src="../../assets/images/logo.png"></ion-img>     
+      </h4>
+  </div>
+
+  <ion-spinner name="bubbles" *ngIf="spinner"></ion-spinner>
   
-  <div class="auth-content">
-
-    <!-- Logo -->
-    <div padding-horizontal text-center class="animated fadeInDown">
-      
-      <h4 no-margin>
-          <ion-img class="img-login center" src="../../assets/images/logo.png"></ion-img>     
-       </h4>
-    </div>
-
-    <ion-spinner name="bubbles" *ngIf="spinner"></ion-spinner>
-    
-    <!-- Login form -->
-    <div  class="list-form">
-      <div *ngIf="!esqueci">
-        <div *ngIf="novo">
-          <ion-card class="ion-text-center" style="background-color: #baba40">
-            <ion-card-header>
-              <ion-card-title>Login empresa</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <ion-item lines="none"> 
-                <ion-icon size="small" style="padding-right: 10px; color:white;" name="person" item-left></ion-icon>
-                <ion-input 
-                  class="custom"
-                  labelPlacement="floating"
-                  placeholder="Código empresa"
-                  label="Código empresa"
-                  type="number"
-                  color="light" 
-                  [(ngModel)]="empcodigo" 
-                  maxlength="6"
-                  [clearInput]="true">
-                </ion-input>            
-              </ion-item>             
-              <ion-item lines="none"> 
-                <ion-icon size="small" style="padding-right: 10px; color:white;" name="person" item-left></ion-icon>
-                <ion-input 
-                  class="custom"
-                  labelPlacement="floating"
-                  placeholder="Senha empresa"
-                  label="Senha empresa"
-                  type="password"
-                  color="light" 
-                  [(ngModel)]="empsenha" 
-                  maxlength="20"
-                  [clearInput]="true">
-                </ion-input>            
-              </ion-item>             
-            </ion-card-content>
-          </ion-card>
+  <!-- Login form -->
+  <div *ngIf="!esqueci">
+    <div *ngIf="novo">
+      <ion-card class="ion-text-center" style="background-color: #baba40">
+        <ion-card-header>
+          <ion-card-title>Login empresa</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
           <ion-item lines="none"> 
             <ion-icon size="small" style="padding-right: 10px; color:white;" name="person" item-left></ion-icon>
             <ion-input 
               class="custom"
               labelPlacement="floating"
-              placeholder="Digite seu nome"
-              label="Nome"
-              type="text"
+              placeholder="Código empresa"
+              label="Código empresa"
+              type="number"
               color="light" 
-              [(ngModel)]="nome" 
-              maxlength="50"
+              [(ngModel)]="empcodigo" 
+              maxlength="6"
               [clearInput]="true">
             </ion-input>            
-          </ion-item>
-        </div>
-        <ion-item lines="none"> 
-          <ion-icon size="small" style="padding-right: 10px; color:white;" name="mail" item-left></ion-icon>
-          <ion-input 
-            class="custom"
-            labelPlacement="floating"
-            placeholder="Digite e-mail"
-            label="Email"
-            type="email"
-            color="light" 
-            [(ngModel)]="usuario" 
-            maxlength="25"
-            helperText="Campo requerido"
-            errorText="Email inválido!"
-            [clearInput]="true"
-            email>
-          </ion-input>
-        </ion-item>
-        <ion-item lines="none"> 
-          <ion-icon size="small" style="padding-right: 10px; color:white;" name="lock-closed" item-left></ion-icon>
-          <ion-input 
-            class="custom"
-            labelPlacement="floating"
-            placeholder="Digite senha numérica"
-            label="Senha"
-            type="password"
-            color="light" 
-            [(ngModel)]="senha" 
-            maxlength="10"
-            helperText="Campo requerido"
-            errorText="Digite a senha!"
-            [clearInput]="true">
-          </ion-input>
-        </ion-item>        
-      </div>
-      <div *ngIf="esqueci">
-        <ion-item lines="none"> 
-          <ion-icon size="small" style="padding-right: 10px; color:white;" name="mail" item-left></ion-icon>
-          <ion-input 
-            class="custom"
-            labelPlacement="floating"
-            placeholder="Email para envio da senha"
-            label="Email"
-            type="email"
-            color="light" 
-            [(ngModel)]="emailSenha" 
-            maxlength="25"
-            [clearInput]="true"
-            helperText="Campo requerido"
-            errorText="Email inválido!"            
-            email>
-          </ion-input>
-        </ion-item>          
-        <br><br> 
-        <div>
-          <ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="enviarSenha()"  tappable>
-            <ion-icon name="send"></ion-icon>
-            Enviar
-          </ion-button>
-        </div>
-        <br>
-        <div>
-          <ion-button icon-left size="small" expand="full" shape="round" color="dark" (click)="signin()"  tappable>
-            <ion-icon name="log-in"></ion-icon>
-            Login
-          </ion-button>
-        </div>           
-      </div>
-      <div *ngIf="novo">
-         <ion-item lines="none"> 
-          <ion-icon size="small" style="padding-right: 10px; color:white;" name="lock-closed" item-left></ion-icon>
-          <ion-input 
-            class="custom"
-            labelPlacement="floating"
-            placeholder="Digite senha numérica"
-            label="Repita Senha"
-            type="password"
-            color="light" 
-            [(ngModel)]="senhaRepetir" 
-            maxlength="10"
-            helperText="Campo requerido"
-            [clearInput]="true">
-          </ion-input>
-        </ion-item>           
-      </div>      
+          </ion-item>             
+          <ion-item lines="none"> 
+            <ion-icon size="small" style="padding-right: 10px; color:white;" name="person" item-left></ion-icon>
+            <ion-input 
+              class="custom"
+              labelPlacement="floating"
+              placeholder="Senha empresa"
+              label="Senha empresa"
+              type="password"
+              color="light" 
+              [(ngModel)]="empsenha" 
+              maxlength="20"
+              [clearInput]="true">
+            </ion-input>            
+          </ion-item>             
+        </ion-card-content>
+      </ion-card>
+      <ion-item lines="none"> 
+        <ion-icon size="small" style="padding-right: 10px; color:white;" name="person" item-left></ion-icon>
+        <ion-input 
+          class="custom"
+          labelPlacement="floating"
+          placeholder="Digite seu nome"
+          label="Nome"
+          type="text"
+          color="light" 
+          [(ngModel)]="nome" 
+          maxlength="50"
+          [clearInput]="true">
+        </ion-input>            
+      </ion-item>
+    </div>
+    <ion-item lines="none"> 
+      <ion-icon size="small" style="padding-right: 10px; color:white;" name="mail" item-left></ion-icon>
+      <ion-input 
+        class="custom"
+        labelPlacement="floating"
+        placeholder="Digite e-mail"
+        label="Email"
+        type="email"
+        color="light" 
+        [(ngModel)]="usuario" 
+        maxlength="25"
+        helperText="Campo requerido"
+        errorText="Email inválido!"
+        [clearInput]="true"
+        email>
+      </ion-input>
+    </ion-item>
+    <ion-item lines="none"> 
+      <ion-icon size="small" style="padding-right: 10px; color:white;" name="lock-closed" item-left></ion-icon>
+      <ion-input 
+        class="custom"
+        labelPlacement="floating"
+        placeholder="Digite senha numérica"
+        label="Senha"
+        type="password"
+        color="light" 
+        [(ngModel)]="senha" 
+        maxlength="10"
+        helperText="Campo requerido"
+        errorText="Digite a senha!"
+        [clearInput]="true">
+      </ion-input>
+    </ion-item>        
+  </div>
+  <div *ngIf="esqueci">
+    <ion-item lines="none"> 
+      <ion-icon size="small" style="padding-right: 10px; color:white;" name="mail" item-left></ion-icon>
+      <ion-input 
+        class="custom"
+        labelPlacement="floating"
+        placeholder="Email para envio da senha"
+        label="Email"
+        type="email"
+        color="light" 
+        [(ngModel)]="emailSenha" 
+        maxlength="25"
+        [clearInput]="true"
+        helperText="Campo requerido"
+        errorText="Email inválido!"            
+        email>
+      </ion-input>
+    </ion-item>          
+    <br><br> 
+    <div>
+      <ion-button icon-left size="medium" expand="full" shape="round" color="primary" (click)="enviarSenha()"  tappable>
+        <ion-icon name="send"></ion-icon>
+        Enviar
+      </ion-button>
     </div>
     <br>
-    <div *ngIf="!novo && !esqueci">
-      <div>
-        <ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="login()"  tappable>
-          <ion-icon name="log-in"></ion-icon>
-          Login
-        </ion-button>
-      </div>
-      <br>
-      <div>
-        <ion-button icon-left size="small" expand="full" shape="round" color="dark" (click)="signup()"  tappable>
-          <ion-icon name="person-add"></ion-icon>
-          Novo
-        </ion-button>
-      </div>
-      <div>
-        <ion-button icon-left size="small" expand="full" shape="round" color="dark" (click)="esqueciSenha()"  tappable>
-          <ion-icon name="help-circle"></ion-icon>
-          Esqueci minha senha
-        </ion-button>
-      </div>
+    <div>
+      <ion-button class="loginbutton" icon-left size="small" expand="full" shape="round" color="primary" (click)="signin()"  tappable>
+        <ion-icon name="log-in"></ion-icon>
+        Login
+      </ion-button>
+    </div>           
+  </div>
+  <div *ngIf="novo">
+      <ion-item lines="none"> 
+      <ion-icon size="small" style="padding-right: 10px; color:white;" name="lock-closed" item-left></ion-icon>
+      <ion-input 
+        class="custom"
+        labelPlacement="floating"
+        placeholder="Digite senha numérica"
+        label="Repita Senha"
+        type="password"
+        color="light" 
+        [(ngModel)]="senhaRepetir" 
+        maxlength="10"
+        helperText="Campo requerido"
+        [clearInput]="true">
+      </ion-input>
+    </ion-item>           
+  </div>      
+
+  <br>
+
+  <div *ngIf="!novo && !esqueci">
+    <div>
+      <ion-button icon-left size="medium" expand="full" shape="round" color="primary" (click)="login()"  tappable>
+        <ion-icon name="log-in"></ion-icon>
+        Login
+      </ion-button>
     </div>
-    <div *ngIf="novo">
-      <div>
-        <ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="criar()"  tappable>
-          <ion-icon name="person-add"></ion-icon>
-          Criar
-        </ion-button>
-      </div>
-      <br>
-      <div>
-        <ion-button icon-left size="small" expand="full" shape="round" color="dark" (click)="signin()"  tappable>
-          <ion-icon name="log-in"></ion-icon>
-          Login
-        </ion-button>
-      </div>
+    <br>
+    <div>
+      <ion-button icon-left size="small" expand="full" shape="round" color="primary" (click)="signup()"  tappable>
+        <ion-icon name="person-add"></ion-icon>
+        Novo
+      </ion-button>
+    </div>
+    <div>
+      <ion-button icon-left size="small" expand="full" shape="round" color="primary" (click)="esqueciSenha()"  tappable>
+        <ion-icon name="help-circle"></ion-icon>
+        Esqueci minha senha
+      </ion-button>
+    </div>
+  </div>
+  <div *ngIf="novo">
+    <div>
+      <ion-button icon-left size="medium" expand="full" shape="round" color="primary" (click)="criar()"  tappable>
+        <ion-icon name="person-add"></ion-icon>
+        Criar
+      </ion-button>
+    </div>
+    <br>
+    <div>
+      <ion-button icon-left size="small" expand="full" shape="round" color="primary" (click)="signin()"  tappable>
+        <ion-icon name="log-in"></ion-icon>
+        Login
+      </ion-button>
     </div>
   </div>
   <div *ngIf="!novo && !esqueci">

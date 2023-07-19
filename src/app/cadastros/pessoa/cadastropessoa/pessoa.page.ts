@@ -20,6 +20,7 @@ export class PessoaPage implements OnInit, OnDestroy {
   UsuIdf: number = 0;
   spinner: boolean = false;
   pessoaidf: number = 0;
+  dataNascimento: String = new Date().toISOString();
 
   tipoadm: boolean = false;
   tipofun: boolean = false;
@@ -29,6 +30,7 @@ export class PessoaPage implements OnInit, OnDestroy {
   Pessoa = new PessoaModel;
 
   imagem: SafeResourceUrl;
+  imagemCarregada: SafeResourceUrl;
 
   lerDados: Subscription | undefined;
   updateDados: Subscription | undefined;
@@ -66,7 +68,7 @@ export class PessoaPage implements OnInit, OnDestroy {
     }
   }
 
-  captureImage() {
+/*   captureImage() {
     this.spinner = true;
     this.camera.getPicture(this.options).then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
@@ -75,7 +77,7 @@ export class PessoaPage implements OnInit, OnDestroy {
     }, (err) => {
       this.mensagem(err, 'danger');
     });
-  }
+  } */
 
   compressFile() {
     this.spinner = true;
@@ -84,6 +86,7 @@ export class PessoaPage implements OnInit, OnDestroy {
             .compressFile(image, orientation, 50, 50, 250, 250) // 50% ratio, 50% quality
             .then(compressedImage => {
                 this.imagem = compressedImage;
+                this.imagemCarregada = compressedImage;
                 this.spinner = false;
             });
     });
@@ -136,6 +139,7 @@ export class PessoaPage implements OnInit, OnDestroy {
             if (this.Pessoa.tipo.indexOf('P') != -1){
               this.tipopac = true;
             }
+            this.imagemCarregada = data.foto["data"];
             let imagemAux = this.bin2String(data.foto["data"]);
             this.imagem = this.sanitizer.bypassSecurityTrustUrl(imagemAux);
           },
@@ -165,19 +169,21 @@ export class PessoaPage implements OnInit, OnDestroy {
     }
     else{
       {
+        var data = new Date(this.Pessoa.nascimento);
+        var outraData = data.setDate(data.getDate() + 1);
         let dados = {
           empidf 	  : this.EmpIdf,
           pessoaidf : this.Pessoa.pessoaidf,
           cpf       : this.Pessoa.cpf,
           nome      : this.Pessoa.nome,
           apelido   : this.Pessoa.apelido,
-          nascimento: this.Pessoa.nascimento,
+          nascimento: outraData,
           fone01    : this.Pessoa.fone01,
           fone02    : this.Pessoa.fone02,
           fone02obs : this.Pessoa.fone02obs,
           email     : this.Pessoa.email,
           tipo      : tipoAux,
-          foto      : this.imagem
+          foto      : this.imagemCarregada
         };
         this.spinner = true;
         this.updateDados = this.provider.dadosApi(dados, api).subscribe({

@@ -214,7 +214,11 @@ export class LoginPage implements OnInit, OnDestroy {
         localStorage.setItem("usuIdf","0"); //this.data["UsuIdf"]);
         localStorage.setItem("empIdf",this.data["empidf"]);
         localStorage.setItem("empRazao",data["emprazao"]);
-        localStorage.setItem("empFantasia",data["empfantasia"]);
+        if (!data["empfantasia"] || data["empfantasia"] == ""){
+          localStorage.setItem("empFantasia",data["emprazao"]);
+        } else {
+          localStorage.setItem("empFantasia",data["empfantasia"]);
+        }
         let imagem = JSON.stringify(data["emplogo"]["data"]);
         localStorage.setItem("empLogo",imagem);
         ServiceConfig.EMPIDF = Number(this.data["empidf"]);

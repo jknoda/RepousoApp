@@ -5,12 +5,13 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Api } from 'src/services/api';
 import { AlertController, ToastController } from '@ionic/angular';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
-export interface imgFile {
+/* export interface imgFile {
   name: string;
   filepath: string;
   size: number;
-}
+} */
 
 @Component({
   selector: 'app-empresa',
@@ -25,6 +26,7 @@ export class EmpresaPage implements OnInit, OnDestroy {
   uploadedFile : any;
   uploadedName: any;
   logoempresa: SafeResourceUrl;
+  logoCarregada: SafeResourceUrl;
 
   spinner: boolean = false;
 
@@ -37,7 +39,8 @@ export class EmpresaPage implements OnInit, OnDestroy {
     private provider:Api,
     private actRouter:ActivatedRoute,
     public toastController: ToastController,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private imageCompress: NgxImageCompressService,
   ) { }
 
   ngOnInit() {
@@ -81,7 +84,7 @@ export class EmpresaPage implements OnInit, OnDestroy {
           empfone01       : this.Empresa.empfone01,
           empfone02       : this.Empresa.empfone02,
           empemail        : this.Empresa.empemail,
-          emplogo         : this.uploadedFile,
+          emplogo         : this.logoCarregada,
           empsenha        : this.Empresa.empsenha
         };
         this.spinner = true;
@@ -105,13 +108,13 @@ export class EmpresaPage implements OnInit, OnDestroy {
     }
   }
 
+  /*
   private ler(nome, arquivo)
   {
     this.uploadedFile = arquivo;
     this.uploadedName = nome;
     this.mostrarFoto(arquivo);
   }
-
   uploadImage(event) {
     const file: any = event.target.files[0];
     let formData = new FormData();
@@ -125,22 +128,24 @@ export class EmpresaPage implements OnInit, OnDestroy {
       fileReader.onloadend = function () {
           _this.ler(file.name, fileReader.result);
     }
-    /*
-    // Image validation
-    if (file.type.split('/')[0] !== 'image') {
-      console.log('File type is not supported!');
-      return;
-    }
-   
-    // Storage path
-    const fileStoragePath = `filesStorage/${new Date().getTime()}_${file.name}`;
-    // Image reference
-    */
   }
-
   mostrarFoto(arquivo)
   {
     this.logoempresa = arquivo; 
+  }
+  */
+
+  compressFile() {
+    this.spinner = true;
+    this.imageCompress.uploadFile().then(({image, orientation}) => {
+        this.imageCompress
+            .compressFile(image, orientation, 50, 50, 250, 250) // 50% ratio, 50% quality
+            .then(compressedImage => {
+                this.logoempresa = compressedImage;
+                this.logoCarregada = compressedImage;
+                this.spinner = false;
+            });
+    });
   }
 
   ngOnDestroy(): void {
