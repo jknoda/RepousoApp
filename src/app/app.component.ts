@@ -34,6 +34,9 @@ export class AppComponent {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd ) {
         this.empresa = localStorage.getItem("empFantasia")!;
+        if (!this.empresa){
+          this.empresa = "";
+        }
         if (this.empresa.length > 50){
           this.empresa = this.empresa.substring(0,49);
         }

@@ -37,7 +37,8 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
-        <ion-input type="number" labelPlacement="floating" label="CPF" class="form-control my-3" placeholder="cpf" 
+        <ion-input class="custom" fill="outline" type="number" labelPlacement="floating" label="CPF"   
+          placeholder="cpf" 
           [(ngModel)]="Pessoa.cpf"
           maxlength="11"
           helperText="Campo requerido"
@@ -45,7 +46,8 @@
           [clearInput]="true"></ion-input>  
       </ion-col>
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
-        <ion-input labelPlacement="floating" label="Nome" class="form-control my-3" placeholder="nome" 
+        <ion-input  class="custom" fill="outline" labelPlacement="floating" label="Nome" 
+          placeholder="nome" 
           [(ngModel)]="Pessoa.nome"
           maxlength="150"
           helperText="Campo requerido"
@@ -53,7 +55,8 @@
           [clearInput]="true"></ion-input>  
       </ion-col>
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
-        <ion-input labelPlacement="floating" label="Apelido" class="form-control my-3" placeholder="apelido" 
+        <ion-input  class="custom" fill="outline"  labelPlacement="floating" label="Apelido"
+          placeholder="apelido" 
           [(ngModel)]="Pessoa.apelido"
           maxlength="100"
           [clearInput]="true">
@@ -61,7 +64,10 @@
       </ion-col>
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
         <ion-item>
-          <ion-input id="date" labelPlacement="floating" label="Nascimento" class="form-control my-3" placeholder="nascimento" [(ngModel)]="Pessoa.nascimento"></ion-input>  
+          <ion-input id="date" labelPlacement="floating" label="Nascimento"
+            placeholder="nascimento" 
+            [(ngModel)]="Pessoa.nascimento">
+          </ion-input>  
           <ion-popover trigger="date" size="cover">
             <ng-template>
               <ion-datetime
@@ -74,28 +80,32 @@
         </ion-item>        
       </ion-col>
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
-        <ion-input labelPlacement="floating" label="Fone" class="form-control my-3" placeholder="fone" 
+        <ion-input  class="custom" fill="outline" labelPlacement="floating" label="Fone" 
+          placeholder="fone" 
           [(ngModel)]="Pessoa.fone01"
           maxlength="20"
           [clearInput]="true">
         </ion-input>  
       </ion-col>
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
-        <ion-input labelPlacement="floating" label="Fone recado" class="form-control my-3" placeholder="fone recado" 
+        <ion-input  class="custom" fill="outline" labelPlacement="floating" label="Fone recado" 
+          placeholder="fone recado" 
           [(ngModel)]="Pessoa.fone02"
           maxlength="20"
           [clearInput]="true">
         </ion-input>  
       </ion-col>
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
-        <ion-input labelPlacement="floating" label="Fone obs" class="form-control my-3" placeholder="obs/nome recado" 
+        <ion-input  class="custom" fill="outline" labelPlacement="floating" label="Fone obs" 
+          placeholder="obs/nome recado" 
           [(ngModel)]="Pessoa.fone02obs"
           maxlength="200"
           [clearInput]="true">
         </ion-input>  
       </ion-col>
       <ion-col size="12" size-lg="3" size-md="6" size-sm="12">
-        <ion-input type="email" labelPlacement="floating" label="Email" class="form-control my-3" placeholder="email" 
+        <ion-input  class="custom" fill="outline" type="email" labelPlacement="floating" label="Email" 
+          placeholder="email" 
           [(ngModel)]="Pessoa.email"
           maxlength="150"
           helperText="Campo requerido"

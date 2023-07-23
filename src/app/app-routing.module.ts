@@ -35,7 +35,11 @@ const routes: Routes = [
     path: 'listapessoa',
     loadChildren: () => import('./cadastros/pessoa/listapessoa/listapessoa.module').then( m => m.ListapessoaPageModule),
     canActivate: [AuthGuard],
+  },  {
+    path: 'teste',
+    loadChildren: () => import('./teste/teste.module').then( m => m.TestePageModule)
   }
+
 
 ];
 

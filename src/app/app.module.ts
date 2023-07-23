@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { Camera } from '@ionic-native/camera/ngx';
 import {NgxImageCompressService} from 'ngx-image-compress';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AltersenhaPageModule } from './altersenha/altersenha.module';
 import { EmpresaPageModule } from './empresa/empresa.module';
 import { PessoaPageModule } from './cadastros/pessoa/cadastropessoa/pessoa.module';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
+import { TestePageModule } from './teste/teste.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,9 +25,10 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     AltersenhaPageModule,
     EmpresaPageModule,
-    PessoaPageModule
+    PessoaPageModule,
+    TestePageModule
   ],
-  providers: [Camera, NgxImageCompressService, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [DatePipe, FileOpener, NgxImageCompressService, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -14,6 +14,9 @@
 
 <ion-content>
   <ion-item>
+    <ion-button color="secondary" slot="start" (click)="teste()" *ngIf="master">
+      <ion-icon class="fa fa-pencil-square-o"></ion-icon>
+    </ion-button>
     <ion-button color="secondary" slot="start" (click)="empresa()" *ngIf="master">
       <ion-icon class="fa-sharp fa-solid fa-building"></ion-icon>
     </ion-button>

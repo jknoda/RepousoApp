@@ -45,7 +45,9 @@ export class FolderPage implements OnInit, DoCheck, OnDestroy {
   logout(){
     this.router.navigate(['/login']);
   }
-
+  teste(){
+    this.router.navigate(['/teste']);
+  }
   empresa(){
     this.router.navigate(['/empresa']);
   }

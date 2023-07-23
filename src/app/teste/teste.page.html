@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button  routerLink="/folder">
+        <ion-icon name="arrow-back"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Teste</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">teste</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-button (click)="pdfDownload()">download pdf</ion-button>
+  <ion-button (click)="excelDownload()">download excel</ion-button>
+</ion-content>

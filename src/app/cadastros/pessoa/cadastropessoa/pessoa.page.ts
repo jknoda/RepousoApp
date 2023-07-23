@@ -5,7 +5,6 @@ import { Api } from 'src/services/api';
 import { ToastController } from '@ionic/angular';
 import { ServiceConfig } from '../../../_config/services.config';
 
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { PessoaModel } from 'src/app/model/pessoa.model';
@@ -39,19 +38,11 @@ export class PessoaPage implements OnInit, OnDestroy {
 
   novo: boolean = false;
 
-  options: CameraOptions = {
-    quality: 30,
-    destinationType: this.camera.DestinationType.DATA_URL,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
-  }
-
   constructor(
     private router:Router, 
     private provider:Api,
     private actRouter:ActivatedRoute,
     public toastController: ToastController,
-    private camera: Camera,
     private imageCompress: NgxImageCompressService,
     private sanitizer:DomSanitizer
   ) { }
