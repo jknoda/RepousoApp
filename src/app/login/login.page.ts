@@ -33,18 +33,18 @@ export class LoginPage implements OnInit, OnDestroy {
   enviarEmail: Subscription | undefined;
 
   constructor(
-    private router:Router, 
-    private provider:Api,
+    private router: Router,
+    private provider: Api,
     public toastController: ToastController,
-    
+
   ) { }
 
   ngOnInit() {
     this.limparDados();
   }
 
-  private limparDados(modo=0){
-    if (modo == 0){
+  private limparDados(modo = 0) {
+    if (modo == 0) {
       localStorage.clear();
       this.data = null;
       this.usuario = "";
@@ -55,7 +55,7 @@ export class LoginPage implements OnInit, OnDestroy {
     this.novo = false;
   }
 
-  async mensagem(mensagem, cor){
+  async mensagem(mensagem, cor) {
     this.spinner = false;
     const toast = await this.toastController.create({
       message: mensagem,
@@ -66,40 +66,40 @@ export class LoginPage implements OnInit, OnDestroy {
     toast.present();
   }
 
-  login(){
+  login() {
     this.spinner = true;
     localStorage.clear();
     this.buscar(1);
     this.loginok();
   }
-  private loginok(){
+  private loginok() {
     //this.spinner = false;
-    if (this.data != null){
-        this.buscarEmpresa(Number(this.data["empidf"]));
+    if (this.data != null) {
+      this.buscarEmpresa(Number(this.data["empidf"]));
     }
   }
 
-  signup(){
+  signup() {
     this.novo = true;
   }
 
-  criar(){
-    if (this.usuario == "" || this.senha == ""){
-      this.mensagem('Usuário / Senha inválidos!','danger');
+  criar() {
+    if (this.usuario == "" || this.senha == "") {
+      this.mensagem('Usuário / Senha inválidos!', 'danger');
     }
-    else if (isNaN(Number(this.senha)) || isNaN(Number(this.senhaRepetir))){
-      this.mensagem('Digite somente números na senha e repetir senha!','danger');
+    else if (isNaN(Number(this.senha)) || isNaN(Number(this.senhaRepetir))) {
+      this.mensagem('Digite somente números na senha e repetir senha!', 'danger');
     }
-    else if(this.senha != this.senhaRepetir){
-      this.mensagem('Senha e repetir senha não são iguais!','danger');
-    }    
-    else{
+    else if (this.senha != this.senhaRepetir) {
+      this.mensagem('Senha e repetir senha não são iguais!', 'danger');
+    }
+    else {
       this.novo = false;
       this.buscar(2);
     }
   }
-  private criarOk(){
-    if (this.data == null){
+  private criarOk() {
+    if (this.data == null) {
       this.verificaEmpresa();
       //this.insert();
     }
@@ -108,27 +108,27 @@ export class LoginPage implements OnInit, OnDestroy {
     }
   }
 
-  signin(){
+  signin() {
     this.novo = false;
     this.esqueci = false;
   }
 
-  esqueciSenha(){
+  esqueciSenha() {
     this.esqueci = true;
     this.emailSenha = "";
   }
-  enviarSenha(){
-    if (this.emailSenha != ""){
+  enviarSenha() {
+    if (this.emailSenha != "") {
       this.usuario = this.emailSenha;
       this.buscar(3);
     }
     else {
       this.mensagem("Email inválido!", "danger");
     }
- }
+  }
 
-  enviarSenhaOk(){
-    if (this.emailSenha != "" && this.data != null){
+  enviarSenhaOk() {
+    if (this.emailSenha != "" && this.data != null) {
       let senha = this.data["usersenha"]
       this.limparDados();
       let dados = {
@@ -141,14 +141,14 @@ export class LoginPage implements OnInit, OnDestroy {
       this.spinner = true;
       this.enviarEmail = this.provider.dadosApi(dados, "/api/email/enviargen").subscribe({
         next: (data) => {
-            //this.spinner = false;
-            //this.data = data;
-            this.mensagem("Email enviado!","success");
+          //this.spinner = false;
+          //this.data = data;
+          this.mensagem("Email enviado!", "success");
         },
         error: (err) => {
           //this.spinner = false;
           let msg = err.error.msg.toString();
-          this.mensagem(msg,"danger");
+          this.mensagem(msg, "danger");
         }
       });
       this.esqueci = false;
@@ -158,7 +158,7 @@ export class LoginPage implements OnInit, OnDestroy {
     }
   }
 
-  buscar(rotina = 0){
+  buscar(rotina = 0) {
     let dados = {
       userlogin: this.usuario.toLowerCase(),
       usersenha: this.senha
@@ -167,61 +167,61 @@ export class LoginPage implements OnInit, OnDestroy {
     this.buscarDados = this.provider.dadosApi(dados, "/oapi/user/userlogin").subscribe({
       next: (data) => {
         //this.spinner = false;
-        if (!data && rotina == 1){
+        if (!data && rotina == 1) {
           this.data = null;
           this.mensagem("Usuário/senha inválido!", "danger");
           return this.router.navigate(['login']);
         }
-        this.data = data;      
-        localStorage.setItem("token",data["token"]);
-        switch(rotina) { 
-          case 1: { 
-              this.loginok();
-              break; 
-          } 
-          case 2: { 
-              this.criarOk();
-              break; 
-          } 
-          case 3: { 
+        this.data = data;
+        localStorage.setItem("token", data["token"]);
+        switch (rotina) {
+          case 1: {
+            this.loginok();
+            break;
+          }
+          case 2: {
+            this.criarOk();
+            break;
+          }
+          case 3: {
             this.enviarSenhaOk();
-            break; 
-          } 
-          default: { 
-              return true; 
-              break; 
-          } 
+            break;
+          }
+          default: {
+            return true;
+            break;
+          }
         };
       },
       error: (err) => {
         //this.spinner = false;
         let msg = err.error.msg.toString();
-        this.mensagem(msg,"danger");
+        this.mensagem(msg, "danger");
       }
     });
   }
 
-  buscarEmpresa(EmpIdf){
+  buscarEmpresa(EmpIdf) {
     let dados = {
       empidf: EmpIdf
     };
     this.spinner = true;
     this.buscarDados = this.provider.dadosApi(dados, "/api/empresa/findcomlogo").subscribe({
       next: (data) => {
-        localStorage.setItem("userPerfil",this.data["userperfil"]);
-        localStorage.setItem("userEmail",this.usuario);
-        localStorage.setItem("userNome",this.data["usernome"]);
-        localStorage.setItem("userLogado","S");
-        localStorage.setItem("usuIdf","0"); //this.data["UsuIdf"]);
-        localStorage.setItem("empIdf",this.data["empidf"]);
-        localStorage.setItem("empRazao",data["emprazao"]);
-        if (!data["empfantasia"] || data["empfantasia"] == ""){
-          localStorage.setItem("empFantasia",data["emprazao"]);
+        localStorage.setItem("userPerfil", this.data["userperfil"]);
+        localStorage.setItem("userEmail", this.usuario);
+        localStorage.setItem("userNome", this.data["usernome"]);
+        localStorage.setItem("userLogado", "S");
+        localStorage.setItem("usuIdf", this.data["useridf"]);
+        localStorage.setItem("empIdf", this.data["empidf"]);
+        localStorage.setItem("empRazao", data["emprazao"]);
+        if (!data["empfantasia"] || data["empfantasia"] == "") {
+          localStorage.setItem("empFantasia", data["emprazao"]);
         } else {
-          localStorage.setItem("empFantasia",data["empfantasia"]);
+          localStorage.setItem("empFantasia", data["empfantasia"]);
         }
         let imagem = JSON.stringify(data["emplogo"]["data"]);
-        localStorage.setItem("empLogo",imagem);
+        localStorage.setItem("empLogo", imagem);
         ServiceConfig.EMPIDF = Number(this.data["empidf"]);
         this.limparDados(1);
         this.spinner = false;
@@ -231,20 +231,20 @@ export class LoginPage implements OnInit, OnDestroy {
         //this.spinner = false;
         console.log(err);
         let msg = err.error.msg.toString();
-        this.mensagem(msg,"danger");
+        this.mensagem(msg, "danger");
       }
     });
   }
   bin2String(array) {
     var retorno = '';
     //var j = 0;
-    for(let j=0;j<array.length;j++){
+    for (let j = 0; j < array.length; j++) {
       retorno = retorno + String.fromCharCode(array[j])
     }
     return retorno;
   }
 
-  verificaEmpresa(){
+  verificaEmpresa() {
     let dados = {
       empidf: this.empcodigo,
       empsenha: this.empsenha
@@ -252,7 +252,7 @@ export class LoginPage implements OnInit, OnDestroy {
     this.spinner = true;
     this.buscarDados = this.provider.dadosApi(dados, "/oapi/empresa/empresalogin").subscribe({
       next: (data) => {
-        if (!data){
+        if (!data) {
           this.data = null;
           this.mensagem("Empresa/senha inválido!", "danger");
           return this.router.navigate(['login']);
@@ -264,19 +264,19 @@ export class LoginPage implements OnInit, OnDestroy {
       error: (err) => {
         //this.spinner = false;
         let msg = err.error.msg.toString();
-        this.mensagem(msg,"danger");
+        this.mensagem(msg, "danger");
       }
     });
   }
 
-  insert(){
-    if (this.nome == ""){
+  insert() {
+    if (this.nome == "") {
       this.nome = this.usuario;
     }
     let dados = {
       empidf: this.empcodigo,
       userlogin: this.usuario,
-      usernome: this.nome, 
+      usernome: this.nome,
       cpf: 0,
       userperfil: 'U', // Usuario
       usersenha: this.senha
@@ -291,22 +291,22 @@ export class LoginPage implements OnInit, OnDestroy {
       error: (err) => {
         //this.spinner = false;
         let msg = err.error.msg.toString();
-        this.mensagem(msg,"danger");
+        this.mensagem(msg, "danger");
       }
     });
-  }  
+  }
 
   ngOnDestroy(): void {
-    if (this.buscarDados != null){
+    if (this.buscarDados != null) {
       this.buscarDados.unsubscribe();
     }
-    if (this.updateDados != null){
+    if (this.updateDados != null) {
       this.updateDados.unsubscribe();
     }
-    if (this.criarDados != null){
+    if (this.criarDados != null) {
       this.criarDados.unsubscribe();
     }
-    if (this.enviarEmail != null){
+    if (this.enviarEmail != null) {
       this.enviarEmail.unsubscribe();
     }
 
