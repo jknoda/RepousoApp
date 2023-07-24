@@ -142,7 +142,7 @@ export class LoginPage implements OnInit, OnDestroy {
       this.enviarEmail = this.provider.dadosApi(dados, "/api/email/enviargen").subscribe({
         next: (data) => {
             //this.spinner = false;
-            this.data = data;
+            //this.data = data;
             this.mensagem("Email enviado!","success");
         },
         error: (err) => {
@@ -164,7 +164,7 @@ export class LoginPage implements OnInit, OnDestroy {
       usersenha: this.senha
     };
     this.spinner = true;
-    this.buscarDados = this.provider.dadosApi(dados, "/api/user/userlogin").subscribe({
+    this.buscarDados = this.provider.dadosApi(dados, "/oapi/user/userlogin").subscribe({
       next: (data) => {
         //this.spinner = false;
         if (!data && rotina == 1){
@@ -172,7 +172,8 @@ export class LoginPage implements OnInit, OnDestroy {
           this.mensagem("Usuário/senha inválido!", "danger");
           return this.router.navigate(['login']);
         }
-        this.data = data;
+        this.data = data;      
+        localStorage.setItem("token",data["token"]);
         switch(rotina) { 
           case 1: { 
               this.loginok();
@@ -228,6 +229,7 @@ export class LoginPage implements OnInit, OnDestroy {
       },
       error: (err) => {
         //this.spinner = false;
+        console.log(err);
         let msg = err.error.msg.toString();
         this.mensagem(msg,"danger");
       }
@@ -248,7 +250,7 @@ export class LoginPage implements OnInit, OnDestroy {
       empsenha: this.empsenha
     };
     this.spinner = true;
-    this.buscarDados = this.provider.dadosApi(dados, "/api/empresa/empresalogin").subscribe({
+    this.buscarDados = this.provider.dadosApi(dados, "/oapi/empresa/empresalogin").subscribe({
       next: (data) => {
         if (!data){
           this.data = null;
@@ -280,7 +282,7 @@ export class LoginPage implements OnInit, OnDestroy {
       usersenha: this.senha
     };
     this.spinner = true;
-    this.criarDados = this.provider.dadosApi(dados, "/api/user/create").subscribe({
+    this.criarDados = this.provider.dadosApi(dados, "/oapi/user/create").subscribe({
       next: (data) => {
         //this.spinner = false;
         this.data = data;

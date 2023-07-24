@@ -16,8 +16,19 @@ export class Api{
         ){}
 
     dadosApi(dados: any, api: string): Observable<any>{
+        /*
+        var headers_object = new HttpHeaders();
+        headers_object.append('Content-Type','application/json');
         const httpOptions = {
-            headers: new HttpHeaders({'Content-Type' : 'application/json'})
+          headers: headers_object
+        };
+        */
+       const token = localStorage.getItem('token') || '';
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type' : 'application/json',
+                'Authorization' : token
+            })
         }
         let url = this.server + api;
         return this.http.post(url, JSON.stringify(dados), httpOptions);
